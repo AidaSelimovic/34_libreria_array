@@ -4,6 +4,9 @@
  */
 package com.mycompany._libreria_array;
 
+import eccezioni.EccezionePosizioneNonValida;
+import eccezioni.EccezionePosizioneOccupata;
+
 /**
  *Rappresenta uno scaffale costituito da NUM_RIPIANI mensole, ciascuna delle quali
  * può contenere dei libri. 
@@ -31,7 +34,7 @@ public class Scaffale
      * Costruttore di copia
      * @param scaffale 
      */
-    public Scaffale(Scaffale scaffale)
+    public Scaffale(Scaffale scaffale)  
     {
         Libro lib;
         ripiani=new Mensola[NUM_RIPIANI];
@@ -58,7 +61,7 @@ public class Scaffale
      * @param posizione
      * @return 
      */
-    public int setLibro(Libro libro,int ripiano,int posizione)
+    public int setLibro(Libro libro,int ripiano,int posizione) 
     {
         int esito;
         if(ripiano<0 || ripiano>=NUM_RIPIANI)

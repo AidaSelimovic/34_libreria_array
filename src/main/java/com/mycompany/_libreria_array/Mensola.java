@@ -4,6 +4,9 @@
  */
 package com.mycompany._libreria_array;
 
+import eccezioni.EccezionePosizioneNonValida;
+import eccezioni.EccezionePosizioneOccupata;
+
 /**
  *
  * @author Studente
@@ -40,7 +43,7 @@ public class Mensola
      * i libri vengono aggiunti alla mensola nello stesso ordine in cui si trovano nell'array.
      * @param elencoLibri 
      */
-    public Mensola(Libro elencoLibri[])
+    public Mensola(Libro elencoLibri[]) throws EccezionePosizioneNonValida, EccezionePosizioneOccupata
     {
         volumi=new Libro[NUM_MAX_VOLUMI]; //creo array vuota nella mensola
         
@@ -65,20 +68,20 @@ public class Mensola
        se la posizione è già occupata --> return -2
        se il libro viene posizionato --> return posizione
      */
-    public int setVolume(Libro volume, int posizione)
+    public int setVolume(Libro volume, int posizione) throws EccezionePosizioneNonValida, EccezionePosizioneOccupata
     {
         /*if(posizione<0 || posizione>=NUM_MAX_VOLUMI)
             return -1; //posizione non esiste*/
         try
         {
-                if(volumi[posizione]!=null)
-                return -2; //posizione occupata
+            if(volumi[posizione]!=null)
+                throw new eccezioni.EccezionePosizioneOccupata();
             volumi[posizione]= new Libro(volume); //indipendenza
             return posizione;
         }
         catch(ArrayIndexOutOfBoundsException e)
         {
-            return -1;
+            throw new eccezioni.EccezionePosizioneNonValida();
         }
         
     }
