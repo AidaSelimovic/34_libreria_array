@@ -4,17 +4,13 @@
 
 package com.mycompany._libreria_array;
 
-import eccezioni.EccezionePosizioneNonValida;
-import eccezioni.EccezionePosizioneOccupata;
-import eccezioni.EccezionePosizioneVuota;
-import eccezioni.EccezioneRipianoNonValido;
+import eccezioni.*;
 import java.io.IOException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import utilita.ConsoleInput;
-import utilita.Menu;
-import utilita.Ordinatore;
+
+import utilita.*;
 
 /**
  *
@@ -25,7 +21,7 @@ public class App {
     public static void main(String[] args) 
     {
         String vociMenu[];
-        int numeroVoci=7;
+        int numeroVoci=9;
         vociMenu=new String[numeroVoci];
         Menu menu;
         int voceScelta;
@@ -39,15 +35,17 @@ public class App {
         int ripiano,posizione;
         String elencoTitoliAutore[];
         Libro[] libriPresenti;
+        String nomeFile="volumi.csv";
         
-        vociMenu[0]="0\t--> Esci";
-        vociMenu[1]="1\t--> Visualizza tutti i volumi presenti";
-        vociMenu[2]="2\t--> Aggiungi un volume";
-        vociMenu[3]="3\t--> Visualizza volume (ripiano, posizione)";
-        vociMenu[4]="4\t--> Elimina volume (ripiano, posizione)";
-        vociMenu[5]="5\t--> Mostra libri di un autore";
-        vociMenu[6]="6\t--> Mostra libri presenti in ordine alfabetico di titolo";
-        
+        vociMenu[0]="--> Esci";
+        vociMenu[1]="--> Visualizza tutti i volumi presenti";
+        vociMenu[2]="--> Aggiungi un volume";
+        vociMenu[3]="--> Visualizza volume (ripiano, posizione)";
+        vociMenu[4]="--> Elimina volume (ripiano, posizione)";
+        vociMenu[5]="--> Mostra libri di un autore";
+        vociMenu[6]="--> Mostra libri presenti in ordine alfabetico di titolo";
+        vociMenu[7]="--> Esporta i volumi su file CSV";
+        vociMenu[8]="--> Importa i volumi da file CSV";
         
         menu=new Menu(vociMenu);
         
@@ -291,6 +289,23 @@ public class App {
                         System.out.println(libriPresenti[i].toString());
                     }
                     break;
+                case 7: //esporta su file csv
+                    try 
+                    {
+                        s1.esportaCSV(nomeFile);
+                        System.out.println("Esportazione avvenuta con successo!");
+                    } 
+                    catch (IOException ex) 
+                    {
+                        System.out.println("Errore di scrittura, impossibile accedere al file");
+                    } 
+                    catch (FileException ex) 
+                    {
+                        System.out.println("Errore, file aperto in lettura");
+                    }
+                
+                break;
+
             
             }
 

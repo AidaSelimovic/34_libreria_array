@@ -5,8 +5,8 @@
 package com.mycompany._libreria_array;
 
 import eccezioni.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.IOException;
+import utilita.TextFile;
 
 /**
  *Rappresenta uno scaffale costituito da NUM_RIPIANI mensole, ciascuna delle quali
@@ -310,5 +310,40 @@ public class Scaffale
             s+="Ripiano "+i+":\n"+ripiani[i].toString();
         }
         return s;
+    }
+    
+    public void esportaCSV(String fileName) throws IOException, FileException
+    {
+        TextFile f1=new TextFile(fileName,'W');
+        Libro lib;
+        String datiVolume;
+        for(int i=0;i<getNumRipiani();i++)
+        {
+            for(int j=0;j<getNumMaxLibri(i);j++)
+            {
+                try 
+                {
+                    lib=this.getLibro(i, j);
+                    datiVolume=i+";"+j+";"+lib.getTitolo()+";"+lib.getAutore()+";"+lib.getNumeroPagine();
+                    f1.toFile(datiVolume);
+                    
+                } 
+                catch (EccezioneRipianoNonValido ex) 
+                {
+                   //mai
+                } 
+                catch (EccezionePosizioneNonValida ex) 
+                {
+                    //mai
+                } 
+                catch (EccezionePosizioneVuota ex) 
+                {
+                    //niente
+                }
+            }
+        }
+        
+        f1.close();
+        
     }
 }
