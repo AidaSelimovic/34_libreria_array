@@ -6,6 +6,8 @@ package com.mycompany._libreria_array;
 
 import eccezioni.*;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import utilita.TextFile;
 
 /**
@@ -345,5 +347,51 @@ public class Scaffale
         
         f1.close();
         
+    }
+    
+    public void importaCSV(String fileName) throws IOException
+    {
+        TextFile f1=new TextFile(fileName,'R');
+        String rigaLetta;
+        String datiLibro[];
+        String titolo, autore;
+        int numeroPagine, ripiano, posizione;
+        Libro lib;
+        try 
+        {
+            while(true)
+            {
+                
+                rigaLetta=f1.fromFile();
+                datiLibro=rigaLetta.split(";");
+                ripiano=Integer.parseInt(datiLibro[0]); //convertito datiLibro in un intero e passato all'array di stringhe
+                posizione=Integer.parseInt(datiLibro[1]); 
+                titolo=datiLibro[2];
+                autore=datiLibro[3];
+                numeroPagine=Integer.parseInt(datiLibro[4]); 
+                lib=new Libro(titolo, autore, numeroPagine);
+                try 
+                {
+                    this.setLibro(lib, ripiano, posizione);
+                } 
+                catch (EccezioneRipianoNonValido ex) 
+                {
+                    //non fa nulla, il libro non viene posizionato nello scaffale
+                } 
+                catch (EccezionePosizioneNonValida ex) 
+                {
+                   //non fa nulla, il libro non viene posizionato nello scaffale
+                } 
+                catch (EccezionePosizioneOccupata ex) 
+                {
+                    //non fa nulla, il libro non viene posizionato nello scaffale
+                }
+            } 
+        }
+        catch (FileException ex) 
+        {
+            //file finito
+            f1.close();
+        }
     }
 }
