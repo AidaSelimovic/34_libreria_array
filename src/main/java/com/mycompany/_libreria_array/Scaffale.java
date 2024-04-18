@@ -5,7 +5,13 @@
 package com.mycompany._libreria_array;
 
 import eccezioni.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utilita.TextFile;
@@ -15,7 +21,7 @@ import utilita.TextFile;
  * può contenere dei libri. 
  * @author Studente
  */
-public class Scaffale 
+public class Scaffale implements Serializable
 {
     private Mensola[] ripiani;
     private final static int NUM_RIPIANI=5;
@@ -393,5 +399,22 @@ public class Scaffale
             //file finito
             f1.close();
         }
+    }
+    
+    public void salvaScaffale(String fileName) throws FileNotFoundException, IOException
+    {
+        ObjectOutputStream writer=new ObjectOutputStream(new FileOutputStream(fileName));
+        writer.writeObject(this);
+        writer.flush();
+        writer.close();
+    }
+    
+    public Scaffale caricaScaffale (String fileName) throws FileNotFoundException, IOException, ClassNotFoundException
+    {
+        Scaffale s;
+        ObjectInputStream reader=new ObjectInputStream(new FileInputStream (fileName));
+        s=(Scaffale) reader.readObject();
+        reader.close();
+        return s;
     }
 }

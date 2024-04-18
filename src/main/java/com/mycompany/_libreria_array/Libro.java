@@ -4,11 +4,14 @@
  */
 package com.mycompany._libreria_array;
 
+import java.io.Serializable;
+
 /**
  * Classe che rappresenta un libro
  * @author Studente
  */
-public class Libro 
+public class Libro implements Serializable
+       
 {
     private String titolo;
     private String autore;

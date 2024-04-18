@@ -21,7 +21,7 @@ public class App {
     public static void main(String[] args) 
     {
         String vociMenu[];
-        int numeroVoci=9;
+        int numeroVoci=11;
         vociMenu=new String[numeroVoci];
         Menu menu;
         int voceScelta;
@@ -36,6 +36,7 @@ public class App {
         String elencoTitoliAutore[];
         Libro[] libriPresenti;
         String nomeFile="volumi.csv";
+        String nomeFileBinario="Scaffale.bin";
         
         vociMenu[0]="--> Esci";
         vociMenu[1]="--> Visualizza tutti i volumi presenti";
@@ -46,6 +47,8 @@ public class App {
         vociMenu[6]="--> Mostra libri presenti in ordine alfabetico di titolo";
         vociMenu[7]="--> Esporta i volumi su file CSV";
         vociMenu[8]="--> Importa i volumi da file CSV";
+        vociMenu[9]="--> Salva dati Scaffale";
+        vociMenu[10]="--> Carica dati Scaffale";
         
         menu=new Menu(vociMenu);
         
@@ -317,8 +320,32 @@ public class App {
                     }
                 
                     break;
-
-            
+                case 9:
+                    try 
+                    {
+                        s1.salvaScaffale(nomeFileBinario);
+                        System.out.println("Salvataggio avvenuto correttamente");
+                    } 
+                    catch (IOException ex) 
+                    {
+                        System.out.println("Impossibile salvare su file");
+                    }
+                    break;
+                case 10:
+                    try 
+                    {
+                        s1=s1.caricaScaffale(nomeFileBinario);
+                        System.out.println("Caricamento avvenuto con successo");
+                    } 
+                    catch (IOException ex) 
+                    {
+                        System.out.println("Impossibile leggere da file");
+                    } 
+                    catch (ClassNotFoundException ex) 
+                    {
+                        System.out.println("Impossibile leggere i dati dallo scaffale");
+                    }
+                    break;
             }
 
         }while(voceScelta!=0);
